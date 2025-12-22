@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Check, Star, Zap, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const plans = [
   {
@@ -146,6 +147,7 @@ const PlansSection = () => {
               <Button 
                 variant={plan.popular ? "gold" : "hero"} 
                 className="w-full gap-2 group"
+                onClick={() => toast.success(`¡Plan ${plan.name} seleccionado!`, { description: "Serás redirigido al proceso de compra..." })}
               >
                 <Zap className="w-4 h-4" />
                 Contratar

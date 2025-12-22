@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { MessageCircle, FileText, Video, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const supportFeatures = [
   {
@@ -45,11 +46,11 @@ const SupportSection = () => {
               No importa la hora ni el problema, siempre habrá alguien para ayudarte.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button variant="hero" size="lg" className="gap-2">
+              <Button variant="hero" size="lg" className="gap-2" onClick={() => toast.info("Chat de soporte", { description: "Conectando con un agente..." })}>
                 <MessageCircle className="w-5 h-5" />
                 Contactar Soporte
               </Button>
-              <Button variant="heroOutline" size="lg">
+              <Button variant="heroOutline" size="lg" onClick={() => toast.info("Documentación", { description: "Abriendo base de conocimientos..." })}>
                 Ver Documentación
               </Button>
             </div>

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Zap, ArrowRight, Gift, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { scrollToSection } from "@/lib/utils";
 
 const CTASection = () => {
   return (
@@ -42,12 +43,12 @@ const CTASection = () => {
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">
-              <Button variant="cta" size="xl" className="gap-3 group">
+              <Button variant="cta" size="xl" className="gap-3 group" onClick={() => scrollToSection("planes")}>
                 <Zap className="w-6 h-6" />
                 <span>Empezar Ahora</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="heroOutline" size="xl" className="gap-2">
+              <Button variant="heroOutline" size="xl" className="gap-2" onClick={() => scrollToSection("planes")}>
                 <Gift className="w-5 h-5" />
                 Ver Promociones
               </Button>

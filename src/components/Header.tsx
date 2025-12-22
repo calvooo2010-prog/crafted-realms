@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Users, Gift, Server } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { scrollToSection } from "@/lib/utils";
+import { toast } from "sonner";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,11 +69,11 @@ const Header = () => {
 
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <Button variant="gold" size="sm" className="gap-2">
+            <Button variant="gold" size="sm" className="gap-2" onClick={() => toast.info("Giftcards", { description: "Próximamente disponible" })}>
               <Gift className="w-4 h-4" />
               Giftcards
             </Button>
-            <Button variant="heroOutline" size="sm">
+            <Button variant="heroOutline" size="sm" onClick={() => toast.info("Área de Clientes", { description: "Redirigiendo al panel..." })}>
               Área de Clientes
             </Button>
           </div>
@@ -106,11 +108,11 @@ const Header = () => {
                   </a>
                 ))}
                 <div className="flex flex-col gap-3 pt-4 border-t border-border">
-                  <Button variant="gold" className="w-full">
+                  <Button variant="gold" className="w-full" onClick={() => { setIsOpen(false); toast.info("Giftcards", { description: "Próximamente disponible" }); }}>
                     <Gift className="w-4 h-4 mr-2" />
                     Giftcards
                   </Button>
-                  <Button variant="heroOutline" className="w-full">
+                  <Button variant="heroOutline" className="w-full" onClick={() => { setIsOpen(false); toast.info("Área de Clientes", { description: "Redirigiendo al panel..." }); }}>
                     Área de Clientes
                   </Button>
                 </div>
