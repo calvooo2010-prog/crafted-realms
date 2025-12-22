@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Shield, Cpu, Users, Zap, Globe, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { scrollToSection } from "@/lib/utils";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const features = [
@@ -90,7 +91,7 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-wrap gap-4"
           >
-            <Button variant="hero" size="lg" className="gap-2 group">
+            <Button variant="hero" size="lg" className="gap-2 group" onClick={() => scrollToSection("planes")}>
               <span className="flex items-center gap-2">
                 <Zap className="w-5 h-5" />
                 Adquirir un
@@ -99,7 +100,7 @@ const HeroSection = () => {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
 
-            <Button variant="heroOutline" size="lg" className="gap-2">
+            <Button variant="heroOutline" size="lg" className="gap-2" onClick={() => scrollToSection("confianza")}>
               Acerca de NetherHost
               <ArrowRight className="w-4 h-4" />
             </Button>
