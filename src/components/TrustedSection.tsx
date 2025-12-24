@@ -46,7 +46,7 @@ const TrustedSection = () => {
             <Trophy className="w-10 h-10 text-secondary" />
           </h2>
           <p className="text-muted-foreground max-w-3xl mx-auto mt-6 text-lg">
-            Más de 200 creadores y creadoras confían en NetherHost para alojar sus servidores, 
+            Más de 200 creadores y creadoras confían en GamzyHost para alojar sus servidores, 
             comunidades y proyectos personalizados, gracias a nuestra infraestructura optimizada. 
             <strong className="text-foreground underline decoration-primary decoration-2 underline-offset-4">
               Únete a una comunidad que elige estabilidad y calidad

@@ -12,11 +12,11 @@ const faqs = [
     answer: "Sí, una vez adquirido tu servidor, podrás hacerlo compatible con Bedrock sin inconvenientes. Puedes configurarlo fácilmente desde el panel de control, y si necesitas ayuda, nuestro equipo de soporte estará encantado de asistirte en el proceso.",
   },
   {
-    question: "¿Por qué debería elegir NetherHost?",
+    question: "¿Por qué debería elegir GamzyHost?",
     answer: "Puedes elegir el proveedor que quieras, pero creemos que somos tu mejor opción: soporte en español con experiencia, precios accesibles sin publicidad, comunidad activa en Discord y hardware potente para un rendimiento fluido, alojando el servidor de cientos de creadores de contenido.",
   },
   {
-    question: "Actualmente estoy con otro host, ¿Puedo migrarme a NetherHost?",
+    question: "Actualmente estoy con otro host, ¿Puedo migrarme a GamzyHost?",
     answer: "Sí, podrás importar tus datos fácilmente desde nuestro panel de control. También tienes la opción de hacerlo manualmente utilizando los datos de acceso SFTP de tu proveedor anterior.",
   },
   {

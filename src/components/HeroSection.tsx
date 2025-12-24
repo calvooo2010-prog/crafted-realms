@@ -11,7 +11,7 @@ const features = [
   { icon: Zap, text: "Todas las versiones y modpacks" },
   { icon: Users, text: "Confiado por +180 creadores", highlight: true },
   { icon: Globe, text: "+400 guías y tutoriales" },
-  { icon: Globe, text: "Subdominio .netherhost.gg" },
+  { icon: Globe, text: "Subdominio .gamzyhost.gg" },
   { icon: Headphones, text: "Desde $0.89/gb/mes" },
 ];
 
@@ -101,7 +101,7 @@ const HeroSection = () => {
             </Button>
 
             <Button variant="heroOutline" size="lg" className="gap-2" onClick={() => scrollToSection("confianza")}>
-              Acerca de NetherHost
+              Acerca de GamzyHost
               <ArrowRight className="w-4 h-4" />
             </Button>
           </motion.div>
