@@ -1,218 +1,226 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Character {
   id: number;
-  type: "steve" | "creeper" | "pig" | "chicken";
+  type: "steve" | "creeper" | "zombie" | "enderman";
   side: "left" | "right";
-  top: number;
-  action: "walk" | "peek" | "jump";
+  verticalPosition: number;
 }
 
 const MinecraftCharacters = () => {
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const [character, setCharacter] = useState<Character | null>(null);
+  const [lastSide, setLastSide] = useState<"left" | "right">("right");
+
+  const spawnCharacter = useCallback(() => {
+    const newSide = lastSide === "left" ? "right" : "left";
+    const types: Character["type"][] = ["steve", "creeper", "zombie", "enderman"];
+    
+    const newCharacter: Character = {
+      id: Date.now(),
+      type: types[Math.floor(Math.random() * types.length)],
+      side: newSide,
+      verticalPosition: 20 + Math.random() * 50, // 20% to 70% from top
+    };
+    
+    setCharacter(newCharacter);
+    setLastSide(newSide);
+
+    // Remove after 3 seconds
+    setTimeout(() => {
+      setCharacter(null);
+    }, 3000);
+  }, [lastSide]);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    // Initial spawn after 2 seconds
+    const initialTimeout = setTimeout(spawnCharacter, 2000);
     
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const scrollDelta = Math.abs(currentScrollY - lastScrollY);
-      
-      // Only trigger on significant scroll
-      if (scrollDelta > 300 && characters.length < 2) {
-        const shouldSpawn = Math.random() > 0.6; // 40% chance
-        
-        if (shouldSpawn) {
-          const newCharacter: Character = {
-            id: Date.now(),
-            type: ["steve", "creeper", "pig", "chicken"][Math.floor(Math.random() * 4)] as Character["type"],
-            side: Math.random() > 0.5 ? "left" : "right",
-            top: Math.min(Math.max(currentScrollY + 200, 100), document.body.scrollHeight - 400),
-            action: ["walk", "peek", "jump"][Math.floor(Math.random() * 3)] as Character["action"],
-          };
-          
-          setCharacters(prev => [...prev, newCharacter]);
-          
-          // Remove character after animation
-          timeout = setTimeout(() => {
-            setCharacters(prev => prev.filter(c => c.id !== newCharacter.id));
-          }, 4000);
-        }
-        
-        setLastScrollY(currentScrollY);
-      }
-    };
+    // Spawn new character every 5 seconds
+    const interval = setInterval(() => {
+      spawnCharacter();
+    }, 5000);
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearTimeout(timeout);
+      clearTimeout(initialTimeout);
+      clearInterval(interval);
     };
-  }, [lastScrollY, characters.length]);
+  }, [spawnCharacter]);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
-      <AnimatePresence>
-        {characters.map((char) => (
-          <CharacterSprite key={char.id} character={char} />
-        ))}
+      <AnimatePresence mode="wait">
+        {character && (
+          <PeekingCharacter key={character.id} character={character} />
+        )}
       </AnimatePresence>
     </div>
   );
 };
 
-const CharacterSprite = ({ character }: { character: Character }) => {
+const PeekingCharacter = ({ character }: { character: Character }) => {
   const isLeft = character.side === "left";
   
-  const getVariants = () => {
-    const baseInitial = { x: isLeft ? -80 : 80, opacity: 0 };
-    const baseExit = { x: isLeft ? -80 : 80, opacity: 0 };
-    
-    switch (character.action) {
-      case "walk":
-        return {
-          initial: baseInitial,
-          animate: { x: isLeft ? 20 : -20, opacity: 1 },
-          exit: baseExit
-        };
-      case "peek":
-        return {
-          initial: { x: isLeft ? -60 : 60, opacity: 0 },
-          animate: { x: isLeft ? -20 : 20, opacity: 1 },
-          exit: { x: isLeft ? -60 : 60, opacity: 0 }
-        };
-      case "jump":
-        return {
-          initial: { x: isLeft ? -80 : 80, y: 50, opacity: 0 },
-          animate: { x: isLeft ? 10 : -10, y: 0, opacity: 1 },
-          exit: { x: isLeft ? -80 : 80, y: 50, opacity: 0 }
-        };
-      default:
-        return {
-          initial: baseInitial,
-          animate: { x: isLeft ? 20 : -20, opacity: 1 },
-          exit: baseExit
-        };
-    }
-  };
-
-  const variants = getVariants();
-
   return (
     <motion.div
       className={`absolute ${isLeft ? "left-0" : "right-0"}`}
-      style={{ top: character.top }}
-      initial={variants.initial}
-      animate={variants.animate}
-      exit={variants.exit}
+      style={{ top: `${character.verticalPosition}%` }}
+      initial={{ x: isLeft ? -100 : 100 }}
+      animate={{ 
+        x: isLeft ? -20 : 20,
+        transition: { 
+          duration: 0.8, 
+          ease: [0.34, 1.56, 0.64, 1] // Spring-like ease
+        }
+      }}
+      exit={{ 
+        x: isLeft ? -100 : 100,
+        transition: { 
+          duration: 0.5, 
+          ease: "easeIn" 
+        }
+      }}
     >
-      <div className={`${!isLeft ? "scale-x-[-1]" : ""}`}>
-        <PixelCharacter type={character.type} action={character.action} />
-      </div>
+      <motion.div 
+        className={`${!isLeft ? "scale-x-[-1]" : ""}`}
+        animate={{ 
+          rotate: [0, -5, 5, -3, 0],
+        }}
+        transition={{
+          duration: 2,
+          ease: "easeInOut",
+          repeat: Infinity,
+          repeatType: "reverse"
+        }}
+      >
+        <CharacterHead type={character.type} />
+      </motion.div>
     </motion.div>
   );
 };
 
-const PixelCharacter = ({ type, action }: { type: Character["type"]; action: Character["action"] }) => {
-  const [frame, setFrame] = useState(0);
-
-  useEffect(() => {
-    if (action === "walk") {
-      const interval = setInterval(() => {
-        setFrame(f => (f + 1) % 2);
-      }, 300);
-      return () => clearInterval(interval);
-    }
-  }, [action]);
-
-  const characters = {
+const CharacterHead = ({ type }: { type: Character["type"] }) => {
+  const heads = {
     steve: (
-      <svg width="48" height="64" viewBox="0 0 12 16" className="pixelated">
-        {/* Head */}
-        <rect x="2" y="0" width="8" height="8" fill="#c4a484" />
-        <rect x="3" y="2" width="2" height="2" fill="#4a3728" /> {/* Left eye */}
-        <rect x="7" y="2" width="2" height="2" fill="#4a3728" /> {/* Right eye */}
-        <rect x="5" y="4" width="2" height="1" fill="#8b7355" /> {/* Nose */}
-        <rect x="4" y="5" width="4" height="1" fill="#8b6f5c" /> {/* Mouth */}
-        <rect x="2" y="0" width="8" height="2" fill="#4a3728" /> {/* Hair */}
-        {/* Body */}
-        <rect x="2" y="8" width="8" height="4" fill="#00a8a8" />
-        {/* Legs */}
-        <rect x="2" y="12" width="3" height="4" fill="#3b5998" style={{ transform: frame === 1 ? "translateY(-1px)" : "" }} />
-        <rect x="7" y="12" width="3" height="4" fill="#3b5998" style={{ transform: frame === 0 ? "translateY(-1px)" : "" }} />
-        {/* Arms */}
-        <rect x="0" y="8" width="2" height="4" fill="#c4a484" style={{ transform: action === "jump" ? "rotate(-45deg)" : "" }} />
-        <rect x="10" y="8" width="2" height="4" fill="#c4a484" style={{ transform: action === "jump" ? "rotate(45deg)" : "" }} />
+      <svg width="80" height="96" viewBox="0 0 20 24" className="pixelated drop-shadow-2xl">
+        {/* Head base - skin */}
+        <rect x="2" y="2" width="16" height="16" fill="#c4a484" />
+        
+        {/* Hair */}
+        <rect x="2" y="2" width="16" height="4" fill="#4a3728" />
+        <rect x="2" y="2" width="2" height="10" fill="#4a3728" />
+        <rect x="16" y="2" width="2" height="10" fill="#4a3728" />
+        
+        {/* Face details */}
+        <rect x="4" y="6" width="4" height="4" fill="#4a3728" /> {/* Left eye area */}
+        <rect x="12" y="6" width="4" height="4" fill="#4a3728" /> {/* Right eye area */}
+        <rect x="5" y="7" width="2" height="2" fill="#ffffff" /> {/* Left eye white */}
+        <rect x="13" y="7" width="2" height="2" fill="#ffffff" /> {/* Right eye white */}
+        <rect x="5" y="7" width="1" height="2" fill="#6b4423" /> {/* Left pupil */}
+        <rect x="13" y="7" width="1" height="2" fill="#6b4423" /> {/* Right pupil */}
+        
+        {/* Nose */}
+        <rect x="9" y="10" width="2" height="2" fill="#a68b6a" />
+        
+        {/* Mouth */}
+        <rect x="7" y="13" width="6" height="2" fill="#8b6f5c" />
+        <rect x="8" y="13" width="4" height="1" fill="#5c4033" />
+        
+        {/* Neck/Body hint */}
+        <rect x="6" y="18" width="8" height="6" fill="#00a8a8" />
+        <rect x="4" y="18" width="2" height="4" fill="#c4a484" /> {/* Left arm */}
+        <rect x="14" y="18" width="2" height="4" fill="#c4a484" /> {/* Right arm */}
       </svg>
     ),
     creeper: (
-      <svg width="48" height="64" viewBox="0 0 12 16" className="pixelated">
-        {/* Head/Body - Creeper is basically a tall rectangle */}
-        <rect x="2" y="0" width="8" height="12" fill="#50c878" />
-        <rect x="3" y="0" width="6" height="12" fill="#3cb371" />
-        {/* Face */}
-        <rect x="3" y="2" width="2" height="3" fill="#1a1a1a" /> {/* Left eye */}
-        <rect x="7" y="2" width="2" height="3" fill="#1a1a1a" /> {/* Right eye */}
-        <rect x="5" y="5" width="2" height="1" fill="#1a1a1a" /> {/* Nose bridge */}
-        <rect x="4" y="6" width="4" height="3" fill="#1a1a1a" /> {/* Mouth */}
-        <rect x="5" y="6" width="2" height="3" fill="#0d0d0d" /> {/* Inner mouth */}
-        {/* Legs */}
-        <rect x="2" y="12" width="3" height="4" fill="#50c878" />
-        <rect x="7" y="12" width="3" height="4" fill="#50c878" />
+      <svg width="80" height="96" viewBox="0 0 20 24" className="pixelated drop-shadow-2xl">
+        {/* Head base */}
+        <rect x="2" y="2" width="16" height="16" fill="#50c878" />
+        <rect x="4" y="4" width="12" height="12" fill="#3cb371" />
+        
+        {/* Darker patches */}
+        <rect x="2" y="2" width="4" height="4" fill="#2e8b57" />
+        <rect x="14" y="2" width="4" height="4" fill="#2e8b57" />
+        <rect x="8" y="14" width="4" height="4" fill="#2e8b57" />
+        
+        {/* Eyes */}
+        <rect x="4" y="5" width="4" height="5" fill="#1a1a1a" />
+        <rect x="12" y="5" width="4" height="5" fill="#1a1a1a" />
+        
+        {/* Mouth */}
+        <rect x="8" y="10" width="4" height="2" fill="#1a1a1a" />
+        <rect x="6" y="12" width="8" height="4" fill="#1a1a1a" />
+        <rect x="8" y="12" width="4" height="4" fill="#0d0d0d" />
+        
+        {/* Body hint */}
+        <rect x="4" y="18" width="12" height="6" fill="#50c878" />
+        <rect x="6" y="18" width="8" height="6" fill="#3cb371" />
       </svg>
     ),
-    pig: (
-      <svg width="48" height="48" viewBox="0 0 12 12" className="pixelated">
-        {/* Body */}
-        <rect x="1" y="4" width="10" height="5" fill="#f5a9b8" />
-        <rect x="2" y="4" width="8" height="5" fill="#ffb6c1" />
-        {/* Head */}
-        <rect x="3" y="1" width="6" height="5" fill="#ffb6c1" />
-        {/* Eyes */}
-        <rect x="4" y="2" width="1" height="2" fill="#1a1a1a" />
-        <rect x="7" y="2" width="1" height="2" fill="#1a1a1a" />
-        {/* Snout */}
-        <rect x="4" y="4" width="4" height="2" fill="#ff9999" />
-        <rect x="5" y="4" width="1" height="1" fill="#1a1a1a" />
-        <rect x="6" y="4" width="1" height="1" fill="#1a1a1a" />
-        {/* Legs */}
-        <rect x="2" y="9" width="2" height="3" fill="#ffb6c1" />
-        <rect x="8" y="9" width="2" height="3" fill="#ffb6c1" />
-        {/* Ears */}
-        <rect x="3" y="0" width="2" height="2" fill="#ffb6c1" />
-        <rect x="7" y="0" width="2" height="2" fill="#ffb6c1" />
+    zombie: (
+      <svg width="80" height="96" viewBox="0 0 20 24" className="pixelated drop-shadow-2xl">
+        {/* Head base - green zombie skin */}
+        <rect x="2" y="2" width="16" height="16" fill="#5a7d4c" />
+        <rect x="4" y="4" width="12" height="12" fill="#6b8f5c" />
+        
+        {/* Hair - messy dark */}
+        <rect x="2" y="2" width="16" height="3" fill="#2d3a29" />
+        <rect x="4" y="5" width="2" height="2" fill="#2d3a29" />
+        <rect x="14" y="5" width="2" height="2" fill="#2d3a29" />
+        
+        {/* Eyes - hollow dark */}
+        <rect x="4" y="6" width="4" height="4" fill="#1a1a1a" />
+        <rect x="12" y="6" width="4" height="4" fill="#1a1a1a" />
+        <rect x="5" y="7" width="2" height="2" fill="#2d5a1a" /> {/* Glowing green */}
+        <rect x="13" y="7" width="2" height="2" fill="#2d5a1a" />
+        
+        {/* Nose */}
+        <rect x="9" y="10" width="2" height="2" fill="#4a6b3c" />
+        
+        {/* Mouth - grimace */}
+        <rect x="6" y="13" width="8" height="3" fill="#3d4f35" />
+        <rect x="7" y="14" width="1" height="1" fill="#1a1a1a" />
+        <rect x="9" y="14" width="2" height="1" fill="#1a1a1a" />
+        <rect x="12" y="14" width="1" height="1" fill="#1a1a1a" />
+        
+        {/* Body - zombie clothes */}
+        <rect x="6" y="18" width="8" height="6" fill="#4a6b8a" />
+        <rect x="4" y="18" width="2" height="4" fill="#5a7d4c" />
+        <rect x="14" y="18" width="2" height="4" fill="#5a7d4c" />
       </svg>
     ),
-    chicken: (
-      <svg width="40" height="48" viewBox="0 0 10 12" className="pixelated">
-        {/* Body */}
-        <rect x="2" y="4" width="6" height="5" fill="#f5f5f5" />
-        <rect x="3" y="4" width="4" height="5" fill="#ffffff" />
-        {/* Head */}
-        <rect x="3" y="1" width="4" height="4" fill="#ffffff" />
-        {/* Eyes */}
-        <rect x="4" y="2" width="1" height="1" fill="#1a1a1a" />
-        <rect x="6" y="2" width="1" height="1" fill="#1a1a1a" />
-        {/* Beak */}
-        <rect x="4" y="3" width="3" height="2" fill="#ffa500" />
-        {/* Comb */}
-        <rect x="4" y="0" width="2" height="2" fill="#ff0000" />
-        {/* Wattle */}
-        <rect x="5" y="5" width="1" height="1" fill="#ff0000" />
-        {/* Legs */}
-        <rect x="3" y="9" width="1" height="3" fill="#ffa500" />
-        <rect x="6" y="9" width="1" height="3" fill="#ffa500" />
-        {/* Wing */}
-        <rect x="1" y="5" width="2" height="3" fill="#e8e8e8" />
+    enderman: (
+      <svg width="80" height="96" viewBox="0 0 20 24" className="pixelated drop-shadow-2xl">
+        {/* Head base - pure black */}
+        <rect x="2" y="2" width="16" height="16" fill="#1a1a1a" />
+        <rect x="4" y="4" width="12" height="12" fill="#0d0d0d" />
+        
+        {/* Eyes - purple glowing */}
+        <rect x="3" y="8" width="6" height="3" fill="#ff00ff" />
+        <rect x="11" y="8" width="6" height="3" fill="#ff00ff" />
+        <rect x="4" y="9" width="4" height="1" fill="#ff66ff" /> {/* Highlight */}
+        <rect x="12" y="9" width="4" height="1" fill="#ff66ff" />
+        
+        {/* Subtle face details */}
+        <rect x="8" y="12" width="4" height="2" fill="#0d0d0d" />
+        
+        {/* Long neck/body - enderman is tall */}
+        <rect x="7" y="18" width="6" height="6" fill="#1a1a1a" />
+        <rect x="4" y="18" width="3" height="5" fill="#0d0d0d" /> {/* Long arm */}
+        <rect x="13" y="18" width="3" height="5" fill="#0d0d0d" />
+        
+        {/* Particles effect */}
+        <rect x="1" y="10" width="1" height="1" fill="#8b00ff" />
+        <rect x="18" y="6" width="1" height="1" fill="#8b00ff" />
+        <rect x="0" y="14" width="1" height="1" fill="#8b00ff" />
+        <rect x="19" y="12" width="1" height="1" fill="#8b00ff" />
       </svg>
     )
   };
 
   return (
-    <div className="drop-shadow-lg opacity-70 hover:opacity-100 transition-opacity">
-      {characters[type]}
+    <div className="opacity-90">
+      {heads[type]}
     </div>
   );
 };
