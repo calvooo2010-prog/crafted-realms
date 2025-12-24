@@ -47,10 +47,10 @@ const Footer = () => {
           <div className="col-span-2">
             <a href="/" className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="font-display font-black text-primary-foreground text-xl">N</span>
+                <span className="font-display font-black text-primary-foreground text-xl">G</span>
               </div>
               <span className="font-display font-bold text-xl text-foreground">
-                Nether<span className="text-primary">Host</span>
+                Gamzy<span className="text-primary">Host</span>
               </span>
             </a>
             <p className="text-muted-foreground text-sm mb-6 max-w-xs">
@@ -129,7 +129,7 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">
-            © {currentYear} NetherHost. Todos los derechos reservados.
+            © {currentYear} GamzyHost. Todos los derechos reservados.
           </p>
           <p className="text-muted-foreground text-sm">
             Hecho con ❤️ para la comunidad de Minecraft

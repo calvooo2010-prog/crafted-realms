@@ -29,11 +29,11 @@ const StatsSection = () => {
             <div className="w-3 h-3 rounded-full bg-destructive/80" />
             <div className="w-3 h-3 rounded-full bg-secondary/80" />
             <div className="w-3 h-3 rounded-full bg-primary/80" />
-            <span className="text-muted-foreground text-sm ml-2">NetherHost/Web</span>
+            <span className="text-muted-foreground text-sm ml-2">GamzyHost/Web</span>
           </div>
           {/* Terminal content */}
           <div className="p-4 font-mono text-sm">
-            <span className="text-primary">→ NetherHost</span>
+            <span className="text-primary">→ GamzyHost</span>
             <span className="text-muted-foreground">/</span>
             <span className="text-secondary">stats</span>
             <br />
