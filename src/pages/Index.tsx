@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
+import PromoBanner from "@/components/PromoBanner";
 import TrustedSection from "@/components/TrustedSection";
 import BenefitsSection from "@/components/BenefitsSection";
 import PlansSection from "@/components/PlansSection";
@@ -11,6 +12,7 @@ import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import MinecraftCharacters from "@/components/MinecraftCharacters";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import TrustBadges from "@/components/TrustBadges";
 
 const Index = () => {
   return (
@@ -19,9 +21,11 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
+        <PromoBanner />
         <TrustedSection />
         <BenefitsSection />
         <PlansSection />
+        <TrustBadges />
         <TechSection />
         <TestimonialsSection />
         <StatsSection />
