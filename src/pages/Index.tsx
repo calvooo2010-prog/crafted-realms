@@ -10,6 +10,7 @@ import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import MinecraftCharacters from "@/components/MinecraftCharacters";
+import TestimonialsSection from "@/components/TestimonialsSection";
 
 const Index = () => {
   return (
@@ -22,6 +23,7 @@ const Index = () => {
         <BenefitsSection />
         <PlansSection />
         <TechSection />
+        <TestimonialsSection />
         <StatsSection />
         <SupportSection />
         <FAQSection />
