@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import PromoBanner from "@/components/PromoBanner";
 import TrustedSection from "@/components/TrustedSection";
 import BenefitsSection from "@/components/BenefitsSection";
+import HowItWorks from "@/components/HowItWorks";
 import PlansSection from "@/components/PlansSection";
 import TechSection from "@/components/TechSection";
 import StatsSection from "@/components/StatsSection";
@@ -13,20 +14,25 @@ import Footer from "@/components/Footer";
 import MinecraftCharacters from "@/components/MinecraftCharacters";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import TrustBadges from "@/components/TrustBadges";
+import FeaturedCreators from "@/components/FeaturedCreators";
+import LiveStatsWidget from "@/components/LiveStatsWidget";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <MinecraftCharacters />
+      <LiveStatsWidget />
       <Header />
       <main>
         <HeroSection />
         <PromoBanner />
         <TrustedSection />
+        <HowItWorks />
         <BenefitsSection />
         <PlansSection />
         <TrustBadges />
         <TechSection />
+        <FeaturedCreators />
         <TestimonialsSection />
         <StatsSection />
         <SupportSection />
