@@ -3,6 +3,7 @@ import { ArrowRight, Shield, Cpu, Users, Zap, Globe, Headphones } from "lucide-r
 import { Button } from "@/components/ui/button";
 import { scrollToSection } from "@/lib/utils";
 import heroBg from "@/assets/hero-bg.jpg";
+import FloatingParticles from "./FloatingParticles";
 
 const features = [
   { icon: Shield, text: "Java & Bedrock", highlight: true },
@@ -28,6 +29,9 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background/80" />
       </div>
+
+      {/* Floating particles effect */}
+      <FloatingParticles />
 
       {/* Animated glow orbs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-slow" />
