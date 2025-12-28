@@ -19,7 +19,7 @@ import LiveStatsWidget from "@/components/LiveStatsWidget";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background bg-depth noise-bg">
       <MinecraftCharacters />
       <LiveStatsWidget />
       <Header />
