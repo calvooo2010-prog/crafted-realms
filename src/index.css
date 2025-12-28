@@ -17,7 +17,7 @@
     --background: 35 20% 12%;
     --foreground: 35 15% 95%;
 
-    --card: 35 18% 16%;
+    --card: 0 0% 18%;
     --card-foreground: 35 15% 95%;
 
     --popover: 35 18% 16%;
@@ -138,8 +138,8 @@
   }
 
   .card-elevated {
-    @apply bg-card border border-border rounded-xl;
-    background: linear-gradient(145deg, hsl(35 18% 18%), hsl(35 18% 14%));
+    @apply border border-border rounded-xl;
+    background: hsl(0 0% 18%);
   }
 
   .card-hover {
