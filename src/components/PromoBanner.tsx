@@ -6,7 +6,7 @@ import { scrollToSection } from "@/lib/utils";
 
 const PromoBanner = () => {
   const [timeLeft, setTimeLeft] = useState({
-    hours: 23,
+    hours: 47,
     minutes: 59,
     seconds: 59,
   });
@@ -98,7 +98,7 @@ const PromoBanner = () => {
                 <Sparkles className="w-4 h-4 text-yellow-300" />
               </div>
               <h3 className="text-white text-xl md:text-2xl font-display font-bold">
-                Servicio exclusivo de atención al cliente <span className="text-yellow-300">48H</span>
+                Servicio exclusivo de atención al cliente
               </h3>
             </div>
           </div>
