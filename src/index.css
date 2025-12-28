@@ -13,35 +13,35 @@
 
 @layer base {
   :root {
-    /* Dark gaming theme */
-    --background: 220 20% 6%;
-    --foreground: 0 0% 98%;
+    /* Warm cream dark theme */
+    --background: 35 20% 12%;
+    --foreground: 35 15% 95%;
 
-    --card: 220 18% 10%;
-    --card-foreground: 0 0% 98%;
+    --card: 35 18% 16%;
+    --card-foreground: 35 15% 95%;
 
-    --popover: 220 18% 10%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 35 18% 16%;
+    --popover-foreground: 35 15% 95%;
 
     /* Emerald green primary */
     --primary: 160 84% 39%;
-    --primary-foreground: 220 20% 6%;
+    --primary-foreground: 35 20% 12%;
 
     /* Gold/amber secondary */
     --secondary: 38 92% 50%;
-    --secondary-foreground: 220 20% 6%;
+    --secondary-foreground: 35 20% 12%;
 
-    --muted: 220 15% 15%;
-    --muted-foreground: 220 10% 60%;
+    --muted: 35 15% 22%;
+    --muted-foreground: 35 10% 60%;
 
     --accent: 160 84% 39%;
-    --accent-foreground: 220 20% 6%;
+    --accent-foreground: 35 20% 12%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 35 15% 95%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
+    --border: 35 15% 25%;
+    --input: 35 15% 25%;
     --ring: 160 84% 39%;
 
     --radius: 0.75rem;
@@ -49,52 +49,52 @@
     /* Custom tokens */
     --glow-primary: 160 84% 39%;
     --glow-secondary: 38 92% 50%;
-    --surface-elevated: 220 18% 12%;
-    --surface-hover: 220 18% 16%;
+    --surface-elevated: 35 18% 18%;
+    --surface-hover: 35 18% 22%;
     
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(160 84% 39%), hsl(160 84% 30%));
     --gradient-gold: linear-gradient(135deg, hsl(38 92% 50%), hsl(38 92% 40%));
-    --gradient-dark: linear-gradient(180deg, hsl(220 20% 6%), hsl(220 20% 4%));
-    --gradient-card: linear-gradient(145deg, hsl(220 18% 12%), hsl(220 18% 8%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 20% 6%) 0%, hsl(220 25% 8%) 50%, hsl(160 30% 8%) 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(35 20% 12%), hsl(35 20% 8%));
+    --gradient-card: linear-gradient(145deg, hsl(35 18% 18%), hsl(35 18% 14%));
+    --gradient-hero: linear-gradient(135deg, hsl(35 20% 12%) 0%, hsl(35 22% 14%) 50%, hsl(40 25% 10%) 100%);
 
     /* Shadows */
     --shadow-glow: 0 0 40px hsl(160 84% 39% / 0.3);
     --shadow-gold: 0 0 30px hsl(38 92% 50% / 0.3);
-    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.4);
-    --shadow-elevated: 0 8px 40px hsl(0 0% 0% / 0.5);
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.3);
+    --shadow-elevated: 0 8px 40px hsl(0 0% 0% / 0.4);
 
     /* Sidebar */
-    --sidebar-background: 220 18% 8%;
-    --sidebar-foreground: 0 0% 98%;
+    --sidebar-background: 35 18% 14%;
+    --sidebar-foreground: 35 15% 95%;
     --sidebar-primary: 160 84% 39%;
-    --sidebar-primary-foreground: 220 20% 6%;
-    --sidebar-accent: 220 18% 15%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 220 15% 20%;
+    --sidebar-primary-foreground: 35 20% 12%;
+    --sidebar-accent: 35 18% 20%;
+    --sidebar-accent-foreground: 35 15% 95%;
+    --sidebar-border: 35 15% 25%;
     --sidebar-ring: 160 84% 39%;
   }
 
   .dark {
-    --background: 220 20% 6%;
-    --foreground: 0 0% 98%;
-    --card: 220 18% 10%;
-    --card-foreground: 0 0% 98%;
-    --popover: 220 18% 10%;
-    --popover-foreground: 0 0% 98%;
+    --background: 35 20% 12%;
+    --foreground: 35 15% 95%;
+    --card: 35 18% 16%;
+    --card-foreground: 35 15% 95%;
+    --popover: 35 18% 16%;
+    --popover-foreground: 35 15% 95%;
     --primary: 160 84% 39%;
-    --primary-foreground: 220 20% 6%;
+    --primary-foreground: 35 20% 12%;
     --secondary: 38 92% 50%;
-    --secondary-foreground: 220 20% 6%;
-    --muted: 220 15% 15%;
-    --muted-foreground: 220 10% 60%;
+    --secondary-foreground: 35 20% 12%;
+    --muted: 35 15% 22%;
+    --muted-foreground: 35 10% 60%;
     --accent: 160 84% 39%;
-    --accent-foreground: 220 20% 6%;
+    --accent-foreground: 35 20% 12%;
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
+    --destructive-foreground: 35 15% 95%;
+    --border: 35 15% 25%;
+    --input: 35 15% 25%;
     --ring: 160 84% 39%;
   }
 }
@@ -139,7 +139,7 @@
 
   .card-elevated {
     @apply bg-card border border-border rounded-xl;
-    background: linear-gradient(145deg, hsl(220 18% 12%), hsl(220 18% 8%));
+    background: linear-gradient(145deg, hsl(35 18% 18%), hsl(35 18% 14%));
   }
 
   .card-hover {
