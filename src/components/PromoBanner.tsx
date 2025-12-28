@@ -93,12 +93,12 @@ const PromoBanner = () => {
               <div className="flex items-center gap-2 justify-center lg:justify-start mb-1">
                 <Sparkles className="w-4 h-4 text-yellow-300" />
                 <span className="text-yellow-300 font-semibold text-sm uppercase tracking-wider">
-                  Oferta de Navidad
+                  Soporte Premium
                 </span>
                 <Sparkles className="w-4 h-4 text-yellow-300" />
               </div>
               <h3 className="text-white text-xl md:text-2xl font-display font-bold">
-                <span className="text-yellow-300">30% DESCUENTO</span> en todos los planes
+                Servicio exclusivo de atención al cliente <span className="text-yellow-300">48H</span>
               </h3>
             </div>
           </div>
