@@ -2,7 +2,6 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import PromoBanner from "@/components/PromoBanner";
 import TrustedSection from "@/components/TrustedSection";
-import BenefitsSection from "@/components/BenefitsSection";
 import HowItWorks from "@/components/HowItWorks";
 import PlansSection from "@/components/PlansSection";
 import TechSection from "@/components/TechSection";
@@ -28,7 +27,6 @@ const Index = () => {
         <PromoBanner />
         <TrustedSection />
         <HowItWorks />
-        <BenefitsSection />
         <PlansSection />
         <TrustBadges />
         <TechSection />
